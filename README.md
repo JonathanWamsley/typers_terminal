@@ -48,6 +48,9 @@ There is nothing stopping you from typing content in a notepad to take notes, bu
 
 ### Installation Guide
 
+- clone it (move project to organizations?)
+- `pip install -r requirements.txt`
+
 ### How To Use
 
 - start application with `python3 main.py` in `/typers_terminal/typers_terminal`
