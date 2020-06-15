@@ -27,7 +27,7 @@ There is nothing stopping you from typing content in a notepad to take notes, bu
         - Clipboard
     - Stats
         - during typing
-            - shows wpm under every word
+            - shows wpm for a given word as if you typed that word for 1 min
         - after typing
             - shows
                 - average wpm
