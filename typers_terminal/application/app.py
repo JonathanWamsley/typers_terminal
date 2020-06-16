@@ -7,6 +7,7 @@ from itertools import zip_longest
 from application.menu import Menu
 from application.text_displayer import TextDisplayer
 from application.typing_drills import TypingDrills
+from application.speed_reading_displayer import SpeedReadingDisplayer
 
 
 '''
@@ -29,7 +30,7 @@ class Start(Menu):
 
         func = {
             'Typing': Typing,
-            'Speed Reading': exit,
+            'Speed Reading': SpeadReading,
             'View Statistics': exit,
             'Settings': Settings,
             'Exit': exit,
@@ -216,6 +217,26 @@ class SubmitText(Menu):
             'Enter URL': (TextDisplayer, 'url'),
             'Paste Clipboard':  (TextDisplayer, 'clipboard'),
             'Return To Typing': Typing,
+        }
+        self.set_functionality(func)
+
+class SpeadReading(Menu):
+    
+    def __init__(self, stdscr):
+        Menu.__init__(self, stdscr)
+        self.stdscr = stdscr
+        self.package_functions()
+        self.display_screen()
+
+    def package_functions(self):
+
+        def about(self):
+            pass
+
+        func = {
+            'Enter URL': (SpeedReadingDisplayer, 'url'),
+            'Paste Clipboard':  (SpeedReadingDisplayer, 'clipboard'),
+            'Return To Menu': Start,
         }
         self.set_functionality(func)
 
