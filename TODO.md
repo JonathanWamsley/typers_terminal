@@ -46,11 +46,27 @@
     - kinds of tests required
 
 
-### A good project name
-- Typers_termainal
-- Terminal_Typer
-- Typist_termainal
-- Text_comprehension
+### Speed Reading
+- Speed Reading
+    - Enter URL
+    - Enter Clipboard
+    - Return To Menu
+
+- Display Speed Reading
+    - Features
+        - Pause Space
+        - Go back 10 words, i
+        - Go forward 10 words, o
+        - Increase speed, Up Arrow
+        - Increase char space, Right Arrow
+        - Decrease speed, Down Arrow
+        - Decrease char space, Left arrow
+
+- bugs
+    - there is an increase in word speed as you push a button
+    - menu after it is finished is not working
+
+
 
 ### keywords
 - terminal
