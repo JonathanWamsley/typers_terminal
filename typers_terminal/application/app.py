@@ -30,7 +30,7 @@ class Start(Menu):
 
         func = {
             'Typing': Typing,
-            'Speed Reading': SpeadReading,
+            'Speed Reading': SpeedReading,
             'View Statistics': exit,
             'Settings': Settings,
             'Exit': exit,
@@ -220,7 +220,7 @@ class SubmitText(Menu):
         }
         self.set_functionality(func)
 
-class SpeadReading(Menu):
+class SpeedReading(Menu):
     
     def __init__(self, stdscr):
         Menu.__init__(self, stdscr)

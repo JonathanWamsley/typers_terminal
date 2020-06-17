@@ -1,5 +1,4 @@
 import curses
-from timeit import default_timer as timer
 from bs4 import BeautifulSoup
 import requests
 
@@ -105,7 +104,7 @@ class SpeedReadingDisplayer:
         max_y, max_x = self.stdscr.getmaxyx()
         self.stdscr.clear()
         curses.curs_set(0)
-        self.stdscr.move(max_y//2, max_x//2 - self.char_width)
+        self.stdscr.move(max_y//2, max_x//2 - (self.char_width//2))
         word = ''
         while True:
             if self.position + 1 >= len(self.words):
@@ -115,7 +114,7 @@ class SpeedReadingDisplayer:
                 word += self.words[self.position] + ' '
                 self.position += 1
             else:
-                self.stdscr.addstr(max_y//2, max_x//2 - self.char_width, word)
+                self.stdscr.addstr(max_y//2, max_x//2 - (self.char_width//2), word)
                 word = ''
                 return
 
@@ -125,6 +124,7 @@ class SpeedReadingDisplayer:
         
         while True:
             self.display_words()
+            curses.delay_output(self.speed)
             key = self.stdscr.getch()
             if self.speed_up(key):
                 self.speed -= 10
@@ -145,6 +145,8 @@ class SpeedReadingDisplayer:
                 x = self.stdscr.getch()
                 self.stdscr.nodelay(1)
                 self.stdscr.timeout(self.speed)
+            elif key == '\x1b':
+                return
 
             if self.position + 1 == len(self.words):
                 self.stdscr.clear()
@@ -153,3 +155,4 @@ class SpeedReadingDisplayer:
     def draw(self):
         self.words = self.text.split()
         self.display_screen()
+
