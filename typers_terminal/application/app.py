@@ -8,6 +8,7 @@ from application.menu import Menu
 from application.text_displayer import TextDisplayer
 from application.typing_drills import TypingDrills
 from application.speed_reading_displayer import SpeedReadingDisplayer
+from application.sponge_typing_displayer import SpongeTypingDisplayer
 
 
 '''
@@ -29,6 +30,7 @@ class Start(Menu):
             sys.exit(0)
 
         func = {
+            'Sponge Typing': SpongeTyping,
             'Typing': Typing,
             'Speed Reading': SpeedReading,
             'View Statistics': exit,
@@ -236,6 +238,27 @@ class SpeedReading(Menu):
         func = {
             'Enter URL': (SpeedReadingDisplayer, 'url'),
             'Paste Clipboard':  (SpeedReadingDisplayer, 'clipboard'),
+            'Return To Menu': Start,
+        }
+        self.set_functionality(func)
+
+        
+class SpongeTyping(Menu):
+    
+    def __init__(self, stdscr):
+        Menu.__init__(self, stdscr)
+        self.stdscr = stdscr
+        self.package_functions()
+        self.display_screen()
+
+    def package_functions(self):
+
+        def about(self):
+            pass
+
+        func = {
+            'Enter URL': (SpongeTypingDisplayer, 'url'),
+            'Paste Clipboard':  (SpongeTypingDisplayer, 'clipboard'),
             'Return To Menu': Start,
         }
         self.set_functionality(func)

@@ -1,5 +1,6 @@
 import curses
 import types
+import sys
 
 class Menu:
 
@@ -41,6 +42,7 @@ class Menu:
                 response(self.stdscr)
         else:
             pass
+        sys.exit(0)
 
     def move_up(self, key):
         return self.selected_row > 0 and (key == curses.KEY_UP or key == ord('k'))

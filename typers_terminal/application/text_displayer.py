@@ -190,7 +190,6 @@ class TextDisplayer:
         word_list = []
         word = ''
         for char in words:
-            print(char, end = '')
             if char == ' ':
                 if word:
                     word_list.append(word)
