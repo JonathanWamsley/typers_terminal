@@ -38,10 +38,9 @@ There is nothing stopping you from typing content in a notepad to take notes, bu
         
 ### In Development
 
-- Speed reading
+- Speed typing combination
 - logging stats
 - documentation
-    - how to install
     - better annotation
 - testing
     - CI/CD tool
@@ -52,8 +51,6 @@ There is nothing stopping you from typing content in a notepad to take notes, bu
 - python -m venv env
 - source env/bin/activate
 - pip install -r requirements.txt
-- python -m spacy download en_core_web_sm
-
 
 ### How To Use
 
