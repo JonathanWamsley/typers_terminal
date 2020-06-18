@@ -115,6 +115,15 @@ needs to have type, learn
 - effectatype
 
 
+- consolitype
+- spongetyper
+
+Organization Name
+
+SpongeLearners
+
+product, SpongeTyper
+
 
 
 
@@ -166,7 +175,7 @@ Consolatype
 Consolitype
 - integrating reading, typing and comprehending techniques for efficient learning.
 
-### Vision
+### sponge typing
 
 User submits text
 
@@ -182,4 +191,65 @@ User submits text
 - stats are summarized and a good job meter comparing average
 
 - summarize based on using the keywords in the headers
+
+#### Sponge Typer
+
+- what
+    Sponge typer is a tool for accelerating the learning process of text ingestion.
+- how
+    Sponge typer is an effective learning tool because it integrates reading, typing and comprehension techniques
+- who
+    Spong typer is for anyone that wants to learn from text documents efficiently
+- where
+    Sponge typer can be used on any text in a clipboard or a URL
+- when
+    Sponge typer will be open source with a GNU licence ready by July 2020?
+- why
+    Sponge typer is a novel way of learning detailed documents faster, saving time and increasing comprehension(back this claim up)
+
+### NLTK or Spacy
+
+ can build chatbots, automatic summarizers, and entity extraction engines with either of these libraries.
+
+ NLTK was created to support education and help students explore ideas.
+
+SpaCy, on the other hand, is the way to go for app developers. It provides the fastest and most accurate syntactic analysis of any NLP library released to date. It also offers access to larger word vectors that are easier to customize. For an app builder mindset that prioritizes getting features done, spaCy would be the better choice.
+
+Winner, Spacy
+
+### Spacy installation
+
+https://spacy.io/usage/
+
+Recommended to download in a virtual environment
+
+pip install -U spacy
+python -m spacy download en
+
+### Tokenize
+
+Instead of using python's split(), Tokenization can be used which is a more robust way to split text based off of word and punctuation context.
+
+Can identify parts of speech for words
+
+### Entities
+
+For nouns, can I identify more into about it.
+
+Very useful for Names or Money or some quantity
+
+Can make an option to instead of spelling the name, can spell the entity type if the user feels the specifics are not important
+
+Could also show all entities with high frequency at the end with relations to other nouns or verbs?
+
+### Problems
+
+Change words like You'll change to You will and highlight the will
+
+
+### Semantics analysis could also be used to color code good, neutral or bad relations
+
+### Hosting
+
+Launching Docker container on mybinder.org like spacy does for its interactive tutorials. This can fit into websites easily
 

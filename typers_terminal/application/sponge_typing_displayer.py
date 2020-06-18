@@ -141,9 +141,11 @@ class SpongeTypingDisplayer:
                     self.stdscr.attron(curses.color_pair(1))
                 elif token.pos_ == 'PROPN':
                     self.stdscr.attron(curses.color_pair(1))
+                elif token.pos_ == 'ADJ':
+                    self.stdscr.attron(curses.color_pair(2))
                 elif token.pos_ == 'NOUN':
                     self.stdscr.attron(curses.color_pair(3))
-                elif token.pos_ == 'VERB':
+                elif token.pos_ == 'VERB' or token.pos_ == 'PART':
                     self.stdscr.attron(curses.color_pair(4))
                 else:
                     self.stdscr.attron(curses.color_pair(5))
