@@ -49,7 +49,11 @@ There is nothing stopping you from typing content in a notepad to take notes, bu
 ### Installation Guide
 
 - clone it (move project to organizations?)
-- `pip install -r requirements.txt`
+- python -m venv env
+- source env/bin/activate
+- pip install -r requirements.txt
+- python -m spacy download en_core_web_sm
+
 
 ### How To Use
 
