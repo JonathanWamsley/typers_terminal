@@ -1,5 +1,28 @@
 from collections import Counter
 
+''' For Input
+GetTextWindow (stdscr, message, trigger)
+get
+    - word amount
+    - apply filter letters
+
+'''
+
+'''For specific input, navigate a list
+    - word list, files in data location
+    - exercise name, functions in typing_drills with a *_exercise in function names
+'''
+
+def get_typing_drills():
+    # Custom exercise
+    # Built in exercise
+
+    # opens a curse menu and shows a list of *_exercise in function names
+    # select a word list
+    # select a function exercise
+    # select a word amount
+    # apply filter or none
+    pass
 
 class TypingDrills:
 
@@ -12,15 +35,7 @@ class TypingDrills:
         self.filter_letters = filter_letters
         self.words = self.get_words()
 
-    # def get_words(self, word_list):
-    #     if word_list == 'common':
-    #         return self.common_words()
-    #     elif word_list == 'uncommon':
-    #         return self.uncommon_words()
-    #     elif word_list == 'custom':
-    #         return word_list
-    #     else:
-    #         raise ValueError('Word List Not Found')
+
     def get_words(self):
         word_list = self.get_word_list(self.file)
         drills = self.get_drill_type(word_list)
@@ -42,9 +57,9 @@ class TypingDrills:
         words_by_type = []
         if self.drill_type == 'words':
             words_by_type = words
-        elif self.drill_type == 'bigrams':
+        elif self.drill_type == 'bigraphs':
             words_by_type = self.most_common_digraphs(words)
-        elif self.drill_type == 'trigrams':
+        elif self.drill_type == 'trigraphs':
             words_by_type = self.most_common_trigraphs(words)
         return words_by_type
 

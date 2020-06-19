@@ -1,5 +1,4 @@
 from curses import wrapper
-from application.menu import Menu
 from application.app import Start
 
 

@@ -155,4 +155,5 @@ class SpeedReadingDisplayer:
     def draw(self):
         self.words = self.text.split()
         self.display_screen()
+        # TODO find why the last word is not displaying, it is creating bugs because its input is being used as output in getcw
 

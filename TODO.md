@@ -3,27 +3,21 @@
 # Refactoring
 - annotations
 - cleaner code
-- separate stats from text displayer
 
 # features
-- add a sql lite database with
+- add a sql database with
     - word, # correctly typed, max wpm, average wpm, etc
-- do NLP to color code parts of speech in words
-- do speed reading section
-    - add amount off character spacing to display words
 - add normal coloring and nightmode coloring in settings
 
 # bugs
 - wrap text around screen for the stats
-- error check on max elements to display, should be done in menu
-- fix drill menu sequence prompts
-- menus are not function if after typing/speed reading ends with esc
+- fix drill menu sequence prompts(will get ride of it soon)
 
 
 ### Setting up for success
-- Project's goal and approach to acheive that goal
-    - ____ is A open source terminal based typing and speed reading application to accelarate learning
-    - It can be used to increase the rate of comprehension of books, articles, documentaion, etc.
+- Project's goal and approach to achieve that goal
+    - Typers_Terminal is A open source terminal based typing and speed reading application to accelerate learning
+    - It can be used to increase the rate of comprehension of books, articles, documentation, etc.
 
 - Why make Typers_Terminal?
     - To learn faster by speed reading content from any site and type the content
@@ -39,40 +33,6 @@
         - When people normally type, they spend more time on content words(nouns and verbs), not the same amount of time
         - https://www.youtube.com/watch?v=JL4WMHyUhdc
         - regression is normal, and you should be able to go back and forth
-
-- contribution instructions
-
-- license
-
-- README
-
-- Organization
-    - How the project is structured
-    - where everything lives
-    - how the code is written
-    - kinds of tests required
-
-
-### Speed Reading
-- Speed Reading
-    - Enter URL
-    - Enter Clipboard
-    - Return To Menu
-
-- Display Speed Reading
-    - Features
-        - Pause Space
-        - Go back 10 words, i
-        - Go forward 10 words, o
-        - Increase speed, Up Arrow
-        - Increase char space, Right Arrow
-        - Decrease speed, Down Arrow
-        - Decrease char space, Left arrow
-
-- bugs
-    - there is an increase in word speed as you push a button
-    - menu after it is finished is not working
-
 
 
 ### keywords
@@ -104,8 +64,7 @@ needs to have type, learn
 - retentive
 - accelerate
 - attaint
-- acquisition
-- agile
+- acquisition agile
 
 - accelalearn (there is an accelareader, which may be why I thought of that)
 - consolitype /consolatype
@@ -118,6 +77,12 @@ needs to have type, learn
 - consolitype
 - spongetyper
 
+- transcribe
+- typscribe
+- scribe
+- rescribe
+- 
+
 Organization Name
 
 SpongeLearners
@@ -128,40 +93,24 @@ product, SpongeTyper
 
 
 
-### Hidden rules
+### Hidden rules to be address or tell users
 
-'`' will skip letter when pressed twice
-esc will stop the program
-there is a hidden pause at the beginning of the new line if you want to take a break and pause
-words are added until there is a space at the end
-them and them. and them? are all considered different
+feature - '`' will skip letter when pressed twice
+feature - esc will stop the program
+intentional if you want to break -there is a hidden pause at the beginning of the new line if you want to take a break and pause
 
-### Though process
+
+### Thought process
 
 The goal is not to read quickly but to learn quickly.  
 If you are going faster than you comprehend, you are creating unnecessary knowledge gaps
 
-For speed reading
-    - have all the headers shown first slowly in a green  
-    - have the nouns in blue
-    - verbs in red
-    - exceptions in magenta
-
-have the header shown with slight pause, followed by the words. Then at the end, show the header one more time.  
 
 BeeLine is a company that color codes lines at a gradient to make your eye wonder less
 https://www.beelinereader.com/
 
 Can change the background color on the current line
 
-
-What if speed reading is merged with typing?
-
-You instead read a line and are prompted to type only the nouns, verbs and exceptions?
-
-At the end, provide a short summary while the main headers are shown. Maybe over look the first and last paragraph again?  
-
-Curses is designed to create text editors, so there is no reason why all this information can not be displayed in an editor
 
 to increase comprehension:  
 - scan over the headers slowly
@@ -172,25 +121,8 @@ to increase comprehension:
 - merging learn process
 Consolatype
 
-Consolitype
 - integrating reading, typing and comprehending techniques for efficient learning.
 
-### sponge typing
-
-User submits text
-
-- URL is parsed creating tags
-- NLP  also creates tags
-
-- headers are shown
-- text is displayed in paragraphs on screen and creates a new paragraph is larger 
-- current line is highlighted or wpm is shown?
-- important words are typed out
-
-- You can move up and down lines or left and right pages
-- stats are summarized and a good job meter comparing average
-
-- summarize based on using the keywords in the headers
 
 #### Sponge Typer
 
@@ -199,9 +131,9 @@ User submits text
 - how
     Sponge typer is an effective learning tool because it integrates reading, typing and comprehension techniques
 - who
-    Spong typer is for anyone that wants to learn from text documents efficiently
+    Sponge typer is for anyone that wants to learn from text documents efficiently
 - where
-    Sponge typer can be used on any text in a clipboard or a URL
+    Sponge typer online browser or downloadable exe file ?
 - when
     Sponge typer will be open source with a GNU licence ready by July 2020?
 - why
@@ -242,14 +174,82 @@ Can make an option to instead of spelling the name, can spell the entity type if
 
 Could also show all entities with high frequency at the end with relations to other nouns or verbs?
 
-### Problems
+###  POS problem
 
 Change words like You'll change to You will and highlight the will
 
-
-### Semantics analysis could also be used to color code good, neutral or bad relations
 
 ### Hosting
 
 Launching Docker container on mybinder.org like spacy does for its interactive tutorials. This can fit into websites easily
 
+
+# Typers Terminal Formatting
+
+# Interface Menu
+- sponge typing
+    - enter url
+    - enter clipboard
+- typing
+    - typing drills
+        - typing exercise
+            - predefined drills
+        - custom exercise
+            - custom selections
+    - enter url
+    - enter clipboard
+- reading
+    - enter url
+    - enter clipboard
+- settings
+    - colors
+        - dark mode
+        - light mode
+        - custom
+    - pos colors
+        - # Later
+    
+# File Layout
+- main.pyi
+- Application
+    - app.py # Links the applications together with only menus
+        - Window(input dictionary, cursor location -> class, func output, final ending screen output)
+    - # Interface files
+        - typing_app.py
+        - reading_app.py
+        - sponge_typing_app.py
+        - settings.py
+            - # later will add statistics
+    - # Windows classes
+        - Create Get input Window(user input, text output)
+            - Get Text
+                - url, clipboard
+            - add acceptance contraints
+                - len, type
+           
+        - Create Selection Window(list names input, corresponding position output)     
+            - file menus
+            - typing drill functions ending in _exercise
+            - boolean true false options
+            
+        - Create Static Window(Fitted_paragraphs, no output)
+            - trigger response to end
+            - can navigate pages
+            
+        - Create Type Text Window(Fitted_paragraphs, stats output)
+            - sponge typer
+            - typer
+            - can navigate pages
+        
+    - #utilities.py      
+        - get text
+            - get url
+            - get clipboard
+            - from file
+        - process text
+            - fit text to screen
+                - fit to width
+                - fit to hight
+
+        - analyze typed text
+            - return typing analytics
