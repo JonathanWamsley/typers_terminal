@@ -3,7 +3,7 @@ from curses import wrapper
 from bs4 import BeautifulSoup
 import requests
 
-from applications.windows import GetTextWindow, GetSelectionWindow
+from application.windows import TextWindow
 
 
 '''This utilities.py holds functions used in the *app.py files
@@ -15,11 +15,11 @@ Main functions are:
 '''
 
 
-def get_text(stdscr: CursesWindow, input_type: str) -> str:
+def get_text(stdscr, input_type):
     '''opens either url or clipboard text prompt'''
 
-    def get_text_from_url(stdscr: CursesWindow) -> str:
-        url = GetTextWindow(stdscr, message = 'Enter a URL and F4 when done: ', trigger = curses.KEY_F4).get_output()
+    def get_text_from_url(stdscr):
+        url = TextWindow(stdscr, message = 'Enter a URL and F4 when done: ').get_output()
         text = scrape_url(url)
         return text
 
@@ -41,8 +41,8 @@ def get_text(stdscr: CursesWindow, input_type: str) -> str:
                         text += elem.get_text() + '\n'
         return text
 
-    def get_text_from_clipboard(stdscr: CursesWindow) -> str:
-        return GetTextWindow(stdscr, message = 'Paste Clipboard and F4 when done: ', trigger = curses.KEY_F4).get_output()
+    def get_text_from_clipboard(stdscr):
+        return TextWindow(stdscr, message = 'Paste Clipboard and F4 when done: ').get_output()
 
     if input_type == 'url':
         text = get_text_from_url(stdscr)
@@ -51,7 +51,7 @@ def get_text(stdscr: CursesWindow, input_type: str) -> str:
     return text
 
 
-def fit_text(doc:str, max_line_height, max_char_width) -> list[list[str]]:
+def fit_text(doc, max_line_height, max_char_width):
     '''Takes in a raw text and applies transforms so the text can be displayed
     - format text to screen
         - format width
@@ -92,7 +92,7 @@ def fit_text(doc:str, max_line_height, max_char_width) -> list[list[str]]:
     return paragraph_fitted_on_screen
 
 
-def apply_nlp(doc: str) -> list[tuple]:
+def apply_nlp(doc):
     pass
 
 def analyze_text():
@@ -100,11 +100,7 @@ def analyze_text():
 
 
 def main(stdscr):
-    text = get_text(stdscr, 'clipboard')
+    text = TextWindow(stdscr, 'clipboard')
 
 if __name__ == "__main__":
     wrapper(main)
-
-
-
-

@@ -22,7 +22,7 @@ def get_typing_drills():
     # select a function exercise
     # select a word amount
     # apply filter or none
-    pass
+    return True
 
 class TypingDrills:
 

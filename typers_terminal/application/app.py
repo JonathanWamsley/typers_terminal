@@ -7,124 +7,19 @@ from application.text_displayer import TextDisplayer
 from application.typing_drills import TypingDrills
 from application.speed_reading_displayer import SpeedReadingDisplayer
 from application.sponge_typing_displayer import SpongeTypingDisplayer
+from application.windows import SelectionWindow
+from application.typing_app import TypingApp
 
-
-'''The application contains only menus with a corresponding functionalities.
+'''The application contains only a selection menus with a corresponding functionalities.
 Each application menu inherits from menu
 Each menu calls on another menu, class or func
 '''
 
-class Menu:
-    '''This class creates an interface menus that can be navigated with curses'''
-    def __init__(self, stdscr):
-        '''The menu stores
-           menu  (list)
-           menu dictionary mapping menu names to menu functionalities (dict)
-           location of the cursor (int)
-        '''
-        self.stdscr = stdscr
-        self.menu_names = []
-        self.menu_functionality = {}
-        self.selected_menu_row = 0
-        self.end_screen = None
-        self.setup()
-
-    def setup(self):
-        curses.curs_set(0)
-        curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
-        curses.init_pair(2, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
-        self.stdscr.clear()
-
-    def print_menu(self):
-        '''Displays the menu items with the highlights selected menu row'''
-        def highlight_row(self):
-            self.stdscr.attron(curses.color_pair(1))
-            self.stdscr.addstr(row, 0, menu_name)
-            self.stdscr.attroff(curses.color_pair(1))
-
-        for row, menu_name in enumerate(self.menu_names):
-            if row == self.selected_menu_row:
-                highlight_row(self)
-            else:
-                self.stdscr.addstr(row, 0, menu_name)
-        self.stdscr.refresh()
-
-    def prompt_menu_functionality(self):
-        '''When enter is selected on menu name, the corresponding menu func is triggered 
-
-        A class or a function can be passed and multiple args can be placed in a tuple as
-        (class, [args])
-
-        After the class or function is executed, an end screen menu is displayed
-        '''
-        def get_menu_functionality(self):
-            '''Uses the selected menu row location to retrieve the correspond menu func'''
-            return self.menu_functionality[self.menu_names[self.selected_menu_row]]
-
-        def unpack_args(self, response):
-            if isinstance(response, tuple):
-                func, args = response
-                return func, args
-            else:
-                return response, None
-
-        def execute_menu_functionality(self, menu_functionality):
-            '''Will execute the function or class and pass args'''
-            if isinstance(menu_functionality, types.FunctionType):
-                menu_functionality(self)
-            elif isinstance(menu_functionality, type): # its a class.
-                if args:
-                    menu_functionality(self.stdscr, args)
-                else:
-                    menu_functionality(self.stdscr)
-            else:
-                sys.exit(0)
-
-        def execute_end_screen(self):
-            '''After the menu func is done, the end screen will appear'''
-            if self.end_screen:
-                self.end_screen(self.stdscr)
-            else:
-                sys.exit(0)
-
-        menu_functionality_packed = get_menu_functionality(self)
-        menu_functionality, args = unpack_args(self, menu_functionality_packed)
-        execute_menu_functionality(self, menu_functionality)
-        execute_end_screen(self)
-
-    def move_up(self, key):
-        return self.selected_menu_row > 0 and (key == curses.KEY_UP or key == ord('k'))
-
-    def move_down(self, key):
-        return self.selected_menu_row < len(self.menu_names) - 1 and (key == curses.KEY_DOWN or key == ord('y'))
- 
-    def enter(self, key):
-        return key == curses.KEY_ENTER or key in [10, 13]
-
-    def display_screen(self):
-        self.print_menu()
-        while True:
-            key = self.stdscr.getch()
-            if self.move_up(key):
-                self.selected_menu_row -= 1
-            elif self.move_down(key):
-                self.selected_menu_row += 1
-            elif self.enter(key):
-                self.prompt_menu_functionality()
-            self.print_menu()
-    
-    def set_menu_functionality(self, functionalities):
-        self.menu_functionality = functionalities
-        self.menu_names = list(self.menu_functionality.keys())
-
-    def set_end_screen(self, menu):
-        self.end_screen = menu
-
-class Start(Menu):
+class Start(SelectionWindow):
     '''The opening menu where the program starts
     as well as a often being used as an end screen'''
     def __init__(self, stdscr):
-        Menu.__init__(self, stdscr)
+        SelectionWindow.__init__(self, stdscr)
         self.package_functions()
         self.display_screen()
 
@@ -134,6 +29,7 @@ class Start(Menu):
             sys.exit(0)
 
         func = {
+            'Typing V2': Typing2,
             'Sponge Typing': SpongeTyping,
             'Typing': Typing,
             'Speed Reading': SpeedReading,
@@ -141,13 +37,13 @@ class Start(Menu):
             'Settings': Settings,
             'Exit': exit,
         }
-        self.set_menu_functionality(func)
+        self.set_selection_functionality(func)
 
 
-class Typing(Menu):
+class Typing(SelectionWindow):
     
     def __init__(self, stdscr):
-        Menu.__init__(self, stdscr)
+        SelectionWindow.__init__(self, stdscr)
         self.package_functions()
         self.display_screen()
 
@@ -161,13 +57,32 @@ class Typing(Menu):
             'Submit Text': SubmitText,
             'Return To Menu': Start,
         }
-        self.set_menu_functionality(func)
+        self.set_selection_functionality(func)
 
-
-class Drills(Menu):
+class Typing2(SelectionWindow):
     
     def __init__(self, stdscr):
-        Menu.__init__(self, stdscr)
+        SelectionWindow.__init__(self, stdscr)
+        self.package_functions()
+        self.display_screen()
+
+    def package_functions(self):
+        
+        def about(self):
+            pass
+
+        func = {
+            'Drills': (TypingApp, 'clipboard'),
+            'Submit Text': SubmitText,
+            'Return To Menu': Start,
+        }
+        self.set_selection_functionality(func)
+
+
+class Drills(SelectionWindow):
+    
+    def __init__(self, stdscr):
+        SelectionWindow.__init__(self, stdscr)
         self.stdscr = stdscr
         self.package_functions()
         self.display_screen()
@@ -180,12 +95,12 @@ class Drills(Menu):
             'Words': (DrillsWordList, 'words'),
             'Return To Typing': Typing,
         }
-        self.set_menu_functionality(func)
+        self.set_selection_functionality(func)
 
 
-class DrillsWordList(Menu):
+class DrillsWordList(SelectionWindow):
     def __init__(self, stdscr, drill_type = 'words'):
-        Menu.__init__(self, stdscr)
+        SelectionWindow.__init__(self, stdscr)
         self.stdscr = stdscr
         self.drill_type = drill_type
         self.package_functions()
@@ -194,7 +109,7 @@ class DrillsWordList(Menu):
     def package_functions(self):
 
         # TODO codesmell, should put functions in separate file to be called
-        # TODO codesmell and UI smell, menus are called to get a single parameter
+        # TODO codesmell and UI smell, SelectionWindows are called to get a single parameter
         def select_word_list(self):
             file_mappings = {}
             for file in os.listdir("../data/"):
@@ -204,19 +119,19 @@ class DrillsWordList(Menu):
             file_mappings['Return To Menu'] = Drills
             return file_mappings
         func = select_word_list(self)
-        self.set_menu_functionality(func)
+        self.set_selection_functionality(func)
 
 
-class DrillsWordAmount(Menu):
+class DrillsWordAmount(SelectionWindow):
     def __init__(self, stdscr, drill_type = 'words'):
-        Menu.__init__(self, stdscr)
+        SelectionWindow.__init__(self, stdscr)
         self.stdscr = stdscr
         self.drill_type = drill_type
         self.package_functions()
         self.display_screen()
 
     def __init__(self, stdscr, args):
-        Menu.__init__(self, stdscr)
+        SelectionWindow.__init__(self, stdscr)
         self.stdscr = stdscr
         self.drill_type,  self.file = args
         self.package_functions()
@@ -257,12 +172,12 @@ class DrillsWordAmount(Menu):
             'Return To Typing': Typing,
         }
 
-        self.set_menu_functionality(func)
+        self.set_selection_functionality(func)
 
 
-class DrillsWordFilter(Menu):
+class DrillsWordFilter(SelectionWindow):
     def __init__(self, stdscr, args):
-        Menu.__init__(self, stdscr)
+        SelectionWindow.__init__(self, stdscr)
         self.stdscr = stdscr
         self.drill_type, self.file, self.word_amount = args
         self.package_functions()
@@ -300,14 +215,14 @@ class DrillsWordFilter(Menu):
             'Filtered Words': display_words(self),
             'Return To Typing': Typing,
         }
-        self.set_end_screen(Start)
-        self.set_menu_functionality(func)
+        self.set_new_screen(Start)
+        self.set_selection_functionality(func)
 
 
-class SubmitText(Menu):
+class SubmitText(SelectionWindow):
     
     def __init__(self, stdscr):
-        Menu.__init__(self, stdscr)
+        SelectionWindow.__init__(self, stdscr)
         self.stdscr = stdscr
         self.package_functions()
         self.display_screen()
@@ -322,13 +237,13 @@ class SubmitText(Menu):
             'Paste Clipboard':  (TextDisplayer, 'clipboard'),
             'Return To Typing': Typing,
         }
-        self.set_end_screen(Start)
-        self.set_menu_functionality(func)
+        self.set_new_screen(Start)
+        self.set_selection_functionality(func)
 
-class SpeedReading(Menu):
+class SpeedReading(SelectionWindow):
     
     def __init__(self, stdscr):
-        Menu.__init__(self, stdscr)
+        SelectionWindow.__init__(self, stdscr)
         self.stdscr = stdscr
         self.package_functions()
         self.display_screen()
@@ -343,14 +258,14 @@ class SpeedReading(Menu):
             'Paste Clipboard':  (SpeedReadingDisplayer, 'clipboard'),
             'Return To Menu': Start,
         }
-        self.set_end_screen(Start)
-        self.set_menu_functionality(func)
+        self.set_new_screen(Start)
+        self.set_selection_functionality(func)
 
         
-class SpongeTyping(Menu):
+class SpongeTyping(SelectionWindow):
     
     def __init__(self, stdscr):
-        Menu.__init__(self, stdscr)
+        SelectionWindow.__init__(self, stdscr)
         self.stdscr = stdscr
         self.package_functions()
         self.display_screen()
@@ -365,13 +280,13 @@ class SpongeTyping(Menu):
             'Paste Clipboard':  (SpongeTypingDisplayer, 'clipboard'),
             'Return To Menu': Start,
         }
-        self.set_end_screen(Start)
-        self.set_menu_functionality(func)
+        self.set_new_screen(Start)
+        self.set_selection_functionality(func)
 
-class Settings(Menu):
+class Settings(SelectionWindow):
 
     def __init__(self, stdscr):
-        Menu.__init__(self, stdscr)
+        SelectionWindow.__init__(self, stdscr)
         self.package_functions()
         self.display_screen()
 
@@ -386,4 +301,4 @@ class Settings(Menu):
             'Change Screen Colors': about,
             'Return To Menu': Start,
         }
-        self.set_menu_functionality(func)
+        self.set_selection_functionality(func)
